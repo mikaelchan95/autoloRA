@@ -1,0 +1,10 @@
+auto-commits: false
+dirty-commits: true
+attribute-co-authored-by: false
+stream: true
+
+read:
+  - CLAUDE.md
+  - program.md
+  - eval_prompts.txt
+  - config.yaml

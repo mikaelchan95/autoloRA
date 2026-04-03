@@ -121,12 +121,23 @@ Key dependencies:
 
 ## Using with an AI Agent
 
-Point Claude Code, Cursor, or Aider at this repo with `program.md` as context. The agent should:
+Agent instruction files are included for every major coding agent. Just open the repo — the agent auto-discovers its instructions.
 
-1. Read `program.md` for research directions and constraints
-2. Read `outputs/experiment_log.jsonl` for past results
-3. Modify **only** `config.yaml`
-4. The ratchet loop handles training, evaluation, and git
+| Agent | Instruction File | Setup |
+|-------|-----------------|-------|
+| **Claude Code** | `CLAUDE.md` | `cd autoloRA && claude` |
+| **Cursor** | `.cursorrules` | Open folder in Cursor |
+| **Aider** | `.aider.conf.yml` + `CLAUDE.md` | `cd autoloRA && aider` |
+| **GitHub Copilot** | `CLAUDE.md` | Open in VS Code with Copilot |
+
+The agent will:
+1. Run `python validate.py` to check readiness
+2. Read `program.md` for research directions and parameter ranges
+3. Read `outputs/experiment_log.jsonl` for past results
+4. Modify **only** `config.yaml` — one parameter at a time
+5. Run `python run_experiment.py` — trains, generates, scores (~25 min)
+6. Keep improvements (`git commit`), revert failures (`git checkout`)
+7. Repeat indefinitely
 
 ## Tips
 
