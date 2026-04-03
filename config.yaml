@@ -1,0 +1,78 @@
+---
+# AutoLoRA — Ostris AI Toolkit LoRA Training Config
+# This file is the ONLY file the optimization agent may modify.
+# See program.md for research directions and constraints.
+
+job: extension
+
+config:
+  name: "autolora_experiment"
+
+  process:
+    - type: "sd_trainer"
+
+      training_folder: "output"
+      device: cuda:0
+
+      # ── Network (LoRA) ──────────────────────────────────────────
+      network:
+        type: "lora"
+        linear: 16                # Rank — search: 4, 8, 16, 32, 64, 128
+        linear_alpha: 16          # Alpha — try 0.5x to 2x of rank
+
+      # ── Saving ──────────────────────────────────────────────────
+      save:
+        dtype: float16
+        save_every: 250
+        max_step_saves_to_keep: 1 # Keep only latest to save disk
+
+      # ── Dataset ─────────────────────────────────────────────────
+      datasets:
+        - folder_path: "dataset"
+          caption_ext: "txt"
+          caption_dropout_rate: 0.05
+          shuffle_tokens: false
+          cache_latents_to_disk: true
+          resolution: [512, 768, 1024]
+
+      # ── Training ────────────────────────────────────────────────
+      train:
+        batch_size: 1
+        steps: 1000              # ~18-20 min on 5090
+        gradient_accumulation_steps: 1
+        train_unet: true
+        train_text_encoder: false
+        gradient_checkpointing: true
+        noise_scheduler: "flowmatch"
+        optimizer: "adamw8bit"
+        lr: 1e-4
+        timestep_type: "weighted"
+        dtype: bf16
+        ema_config:
+          use_ema: true
+          ema_decay: 0.99
+
+      # ── Model ───────────────────────────────────────────────────
+      model:
+        name_or_path: "black-forest-labs/FLUX.1-dev"
+        is_flux: true
+        quantize: true            # 8-bit quantization — saves VRAM for eval
+
+      # ── Sampling (during training) ─────────────────────────────
+      sample:
+        sampler: "flowmatch"
+        sample_every: 250
+        width: 1024
+        height: 1024
+        prompts:
+          - "a photo of sks person, studio lighting"
+          - "sks person outdoors, natural light"
+        neg: ""
+        seed: 42
+        walk_seed: true
+        guidance_scale: 4
+        sample_steps: 20
+
+meta:
+  name: "[name]"
+  version: "1.0"

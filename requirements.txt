@@ -1,0 +1,24 @@
+# Core training (Ostris AI Toolkit handles its own deps, but we need these)
+torch>=2.1.0
+accelerate>=0.25.0
+diffusers>=0.25.0
+transformers>=4.36.0
+safetensors>=0.4.0
+peft>=0.7.0
+
+# Evaluation pipeline
+open-clip-torch>=2.24.0       # CLIP-I (image similarity) + CLIP-T (text-image alignment)
+insightface>=0.7.3            # ArcFace identity consistency
+onnxruntime-gpu>=1.16.0       # ArcFace backend
+simple-aesthetics-predictor   # LAION aesthetic score (aesthetic-predictor-v2-5)
+
+# Image handling
+Pillow>=10.0.0
+numpy>=1.24.0
+
+# Config & logging
+pyyaml>=6.0
+jsonlines>=4.0.0
+
+# Utilities
+tqdm>=4.65.0

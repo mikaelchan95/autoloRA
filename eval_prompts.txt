@@ -1,0 +1,13 @@
+# Evaluation prompts for LoRA scoring
+# Format: seed | prompt
+# Fixed seeds ensure reproducible generation across experiments
+# Prompts test diverse scenarios to catch mode collapse and prompt adherence
+
+42 | a photo of sks person standing in a sunlit garden, natural lighting, sharp focus
+137 | sks person sitting at a cafe table, urban background, candid shot
+256 | a portrait of sks person with dramatic studio lighting, black background
+512 | sks person walking on a beach at sunset, golden hour photography
+1024 | sks person reading a book in a cozy library, warm ambient lighting
+2048 | a close-up photo of sks person laughing, shallow depth of field
+4096 | sks person in a snowy winter landscape, wearing a coat, overcast sky
+8192 | sks person standing in front of a colorful mural, street photography
