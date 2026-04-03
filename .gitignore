@@ -26,12 +26,12 @@ outputs/
 !outputs/.gitkeep
 
 # Dataset (user-provided, not tracked)
-dataset/
-!dataset/.gitkeep
+dataset/*
+!dataset/README.md
 
 # Reference images (user-provided)
-reference_images/
-!reference_images/.gitkeep
+reference_images/*
+!reference_images/README.md
 
 # HuggingFace cache
 .cache/
